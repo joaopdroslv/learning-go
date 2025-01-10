@@ -9,9 +9,9 @@ func main() {
 
 	// 1. Arithmetic
 	fmt.Println("Arithmetic:")
-	
+
 	a, b := 10, 5
-	
+
 	fmt.Println("a + b =", a + b)  // +: Addition
 	fmt.Println("a - b =", a - b)  // -: Subtraction
 	fmt.Println("a * b =", a * b)  // *: Multiplication
