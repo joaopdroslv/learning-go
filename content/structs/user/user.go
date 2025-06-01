@@ -6,7 +6,9 @@ import (
 	"time"
 )
 
-// user defines the structure for storing user-related data
+// User defines a struct for storing user-related data.
+// Fields starting with lowercase letters are unexported and accessible only within this package.
+// To make fields accessible from other packages, capitalize them (e.g., FirstName).
 type User struct {
 	firstName string
 	lastName  string
