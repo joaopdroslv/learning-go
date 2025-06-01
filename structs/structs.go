@@ -2,47 +2,39 @@ package main
 
 import (
 	"fmt"
-	"time"
-)
 
-type user struct { // Define our structure
-	firstName string
-	lastName  string
-	birthDate string
-	createdAt time.Time
-}
+	"example.com/structs/user"
+)
 
 func main() {
 	firstNameInput := getUserData("Please enter your first name: ")
 	lastNameInput := getUserData("Please enter your last name: ")
 	birthDateInput := getUserData("Please enter your birthdate (mm/dd/yyyy): ")
 
-	// fmt.Println(firstNameInput, lastNameInput, birthDateInput)
+	var appUser *user.User
 
-	var appUser user
+	// Using a contructor to create a new user
+	appUser, err := user.New(firstNameInput, lastNameInput, birthDateInput)
 
-	appUser = user{
-		firstName: firstNameInput,
-		lastName:  lastNameInput,
-		birthDate: birthDateInput,
-		createdAt: time.Now(),
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 
-	outputUserDetails(&appUser)
+	admin := user.NewAdmin("test@example.com", "admin")
 
-	// ... do something awesome with that gathered data!
+	admin.OutputUserDetails()
+
+	// Call the method attached to the user struct
+	appUser.OutputUserDetails()
+	appUser.ClearUserName()
+	appUser.OutputUserDetails()
+
 }
 
-func outputUserDetails(u *user) {
-	// While (*u).firstName is the explicit way to dereference the pointer,
-	// Go allows accessing struct fields directly through the pointer using u.firstName.
-	// The compiler automatically dereferences the pointer
-	fmt.Println((*u).firstName, u.lastName, u.birthDate, u.createdAt)
-}
-
-func getUserData(prompText string) string {
-	fmt.Print(prompText)
+func getUserData(promptText string) string {
+	fmt.Print(promptText)
 	var value string
-	fmt.Scan(&value)
+	fmt.Scanln(&value)
 	return value
 }
